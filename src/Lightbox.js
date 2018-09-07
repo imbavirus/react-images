@@ -139,8 +139,6 @@ class Lightbox extends Component {
 		}
 		this.props.onClickNext();
 		this.setState({ rotate: 0 });
-
-		this.props.onClickNext();
 	}
 	gotoPrev (event) {
 		const { currentImage } = this.props;
@@ -180,6 +178,7 @@ class Lightbox extends Component {
 	
 	handleImageLoaded () {
 		this.setState({ imageLoaded: true });
+	}
 	
 	rotate () {
 		if (event) {
