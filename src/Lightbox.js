@@ -34,11 +34,13 @@ class Lightbox extends Component {
 		this.theme = deepMerge(defaultTheme, props.theme);
 		this.classes = StyleSheet.create(deepMerge(defaultStyles, this.theme));
 		this.state = { imageLoaded: false };
+		this.state = { rotate: 0 };
 
 		bindFunctions.call(this, [
 			'gotoNext',
 			'gotoPrev',
 			'closeBackdrop',
+			'rotate',
 			'handleKeyboardInput',
 			'handleImageLoaded',
 		]);
@@ -135,6 +137,8 @@ class Lightbox extends Component {
 			event.preventDefault();
 			event.stopPropagation();
 		}
+		this.props.onClickNext();
+		this.setState({ rotate: 0 });
 
 		this.props.onClickNext();
 	}
@@ -150,6 +154,7 @@ class Lightbox extends Component {
 		}
 
 		this.props.onClickPrev();
+		this.setState({ rotate: 0 });
 	}
 	closeBackdrop (event) {
 		// make sure event only happens if they click the backdrop
@@ -172,8 +177,21 @@ class Lightbox extends Component {
 		return false;
 
 	}
+	
 	handleImageLoaded () {
 		this.setState({ imageLoaded: true });
+	
+	rotate () {
+		if (event) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		if (this.state.rotate === 360) {
+			this.setState({ rotate: 90 });
+		} else {
+			this.setState({ rotate: this.state.rotate + 90 });
+		}
+
 	}
 
 	// ==============================
@@ -210,7 +228,11 @@ class Lightbox extends Component {
 		const {
 			backdropClosesModal,
 			isOpen,
+			onClose,
+			showCloseButton,
+			showRotateButton,
 			showThumbnails,
+			rotateButtonTitle,
 			width,
 		} = this.props;
 
@@ -240,6 +262,19 @@ class Lightbox extends Component {
 					{imageLoaded && this.renderArrowPrev()}
 					{imageLoaded && this.renderArrowNext()}
 					{this.props.preventScroll && <ScrollLock />}
+				</div>
+				
+				<div className={css(classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
+					<Header
+						customControls={customControls}
+						onClose={onClose}
+						onRotate={this.rotate}
+						showCloseButton={showCloseButton}
+						closeButtonTitle={this.props.closeButtonTitle}
+						rotateButtonTitle={rotateButtonTitle}
+						showRotateButton={showRotateButton}
+					/>
+					{this.renderImages()}
 				</div>
 			</Container>
 		);
@@ -281,6 +316,7 @@ class Lightbox extends Component {
 					style={{
 						cursor: onClickImage ? 'pointer' : 'auto',
 						maxHeight: `calc(100vh - ${heightOffset})`,
+						transform: `rotate(${this.state.rotate}deg)`,
 					}}
 				/>
 			</figure>
@@ -401,6 +437,7 @@ Lightbox.propTypes = {
 };
 Lightbox.defaultProps = {
 	closeButtonTitle: 'Close (Esc)',
+	rotateButtonTitle: 'Rotate',
 	currentImage: 0,
 	enableKeyboardInput: true,
 	imageCountSeparator: ' of ',
@@ -414,6 +451,7 @@ Lightbox.defaultProps = {
 	spinner: DefaultSpinner,
 	spinnerColor: 'white',
 	spinnerSize: 100,
+	showRotateButton: true,
 	theme: {},
 	thumbnailOffset: 2,
 	width: 1024,
