@@ -261,20 +261,7 @@ class Lightbox extends Component {
 					{imageLoaded && this.renderArrowPrev()}
 					{imageLoaded && this.renderArrowNext()}
 					{this.props.preventScroll && <ScrollLock />}
-				</div>
-				
-				<div className={css(classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
-					<Header
-						customControls={customControls}
-						onClose={onClose}
-						onRotate={this.rotate}
-						showCloseButton={showCloseButton}
-						closeButtonTitle={this.props.closeButtonTitle}
-						rotateButtonTitle={rotateButtonTitle}
-						showRotateButton={showRotateButton}
-					/>
-					{this.renderImages()}
-				</div>
+				</div>				
 			</Container>
 		);
 	}
@@ -341,14 +328,34 @@ class Lightbox extends Component {
 			customControls,
 			onClose,
 			showCloseButton,
+			rotateButtonTitle,
+			showRotateButton,
 		} = this.props;
+
+/*
+		<div className={css(classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
+					<Header
+						customControls={customControls}
+						onClose={onClose}
+						onRotate={this.rotate}
+						showCloseButton={showCloseButton}
+						closeButtonTitle={this.props.closeButtonTitle}
+						rotateButtonTitle={rotateButtonTitle}
+						showRotateButton={showRotateButton}
+					/>
+					{this.renderImages()}
+				</div>
+*/
 
 		return (
 			<Header
 				customControls={customControls}
 				onClose={onClose}
+				onRotate={this.rotate}
 				showCloseButton={showCloseButton}
 				closeButtonTitle={closeButtonTitle}
+				rotateButtonTitle={rotateButtonTitle}
+				showRotateButton={showRotateButton}
 			/>
 		);
 	}
