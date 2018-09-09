@@ -227,11 +227,7 @@ class Lightbox extends Component {
 		const {
 			backdropClosesModal,
 			isOpen,
-			onClose,
-			showCloseButton,
-			showRotateButton,
 			showThumbnails,
-			rotateButtonTitle,
 			width,
 		} = this.props;
 
@@ -345,8 +341,9 @@ class Lightbox extends Component {
 					/>
 					{this.renderImages()}
 				</div>
-*/
+*/		
 
+console.log(showRotateButton);
 		return (
 			<Header
 				customControls={customControls}
