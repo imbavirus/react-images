@@ -33,8 +33,10 @@ class Lightbox extends Component {
 
 		this.theme = deepMerge(defaultTheme, props.theme);
 		this.classes = StyleSheet.create(deepMerge(defaultStyles, this.theme));
-		this.state = { imageLoaded: false };
-		this.state = { rotate: 0 };
+		this.state = { 
+			imageLoaded: false,
+			rotate: 0 
+		};
 
 		bindFunctions.call(this, [
 			'gotoNext',
@@ -211,6 +213,7 @@ class Lightbox extends Component {
 		);
 	}
 	renderArrowNext () {
+		console.log('arrow next got rendered');
 		if (this.props.currentImage === (this.props.images.length - 1)) return null;
 
 		return (
@@ -343,7 +346,7 @@ class Lightbox extends Component {
 				</div>
 */		
 
-console.log(showRotateButton);
+		console.log(showRotateButton);
 		return (
 			<Header
 				customControls={customControls}
@@ -356,6 +359,7 @@ console.log(showRotateButton);
 			/>
 		);
 	}
+
 	renderFooter () {
 		const {
 			currentImage,
@@ -376,6 +380,7 @@ console.log(showRotateButton);
 			/>
 		);
 	}
+
 	renderSpinner () {
 		const {
 			spinner,
@@ -395,7 +400,9 @@ console.log(showRotateButton);
 			</div>
 		);
 	}
+
 	render () {
+		console.log('rendered');
 		return (
 			<Portal>
 				{this.renderDialog()}
