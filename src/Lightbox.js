@@ -213,7 +213,6 @@ class Lightbox extends Component {
 		);
 	}
 	renderArrowNext () {
-		console.log('arrow next got rendered');
 		if (this.props.currentImage === (this.props.images.length - 1)) return null;
 
 		return (
@@ -331,22 +330,6 @@ class Lightbox extends Component {
 			showRotateButton,
 		} = this.props;
 
-/*
-		<div className={css(classes.content)} style={{ marginBottom: offsetThumbnails, maxWidth: width }}>
-					<Header
-						customControls={customControls}
-						onClose={onClose}
-						onRotate={this.rotate}
-						showCloseButton={showCloseButton}
-						closeButtonTitle={this.props.closeButtonTitle}
-						rotateButtonTitle={rotateButtonTitle}
-						showRotateButton={showRotateButton}
-					/>
-					{this.renderImages()}
-				</div>
-*/		
-
-		console.log(showRotateButton);
 		return (
 			<Header
 				customControls={customControls}
@@ -402,7 +385,6 @@ class Lightbox extends Component {
 	}
 
 	render () {
-		console.log('rendered');
 		return (
 			<Portal>
 				{this.renderDialog()}
